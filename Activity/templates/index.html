@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}ACC Portal | Home{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="eyebrow">Abuyog Community College</div>
+            <h1>ACC Student Portal</h1>
+            <p>Register your student account, securely upload your valid ID, and submit a scholarship application through one simple portal.</p>
+            <div class="actions">
+                {% if current_user %}
+                    <a class="btn btn-primary" href="{{ url_for('dashboard') }}">Open Dashboard</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{{ url_for('register') }}">Create Student Account</a>
+                    <a class="btn btn-outline" href="{{ url_for('login') }}">I Already Have an Account</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="hero-card">
+            <div class="seal">ACC</div>
+            <h3>Student Services</h3>
+            <p>One account for registration, document submission, and scholarship application tracking.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

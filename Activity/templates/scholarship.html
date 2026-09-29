@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Scholarship | ACC Portal{% endblock %}
+{% block content %}
+<section class="page">
+<div class="form-card">
+    <div class="eyebrow">Scholarship Application</div>
+    <h2>Apply for an ACC scholarship</h2>
+    <p>Submit the information below. Your application will initially be marked <strong>Pending</strong>.</p>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div class="form-grid">
+            <div>
+                <label>Scholarship Type <span class="required">*</span></label>
+                <select name="scholarship_type" required>
+                    <option value="">Select scholarship</option>
+                    {% for s in ['Academic Scholarship','Financial Assistance','Athletic Scholarship','Community Service Scholarship','Other'] %}
+                    <option value="{{ s }}" {% if form.get('scholarship_type') == s %}selected{% endif %}>{{ s }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Estimated Household Monthly Income <span class="required">*</span></label>
+                <input name="household_income" required value="{{ form.get('household_income','') }}" placeholder="e.g. PHP 15,000">
+            </div>
+            <div>
+                <label>Parent / Guardian Name <span class="required">*</span></label>
+                <input name="guardian_name" required value="{{ form.get('guardian_name','') }}">
+            </div>
+            <div>
+                <label>Parent / Guardian Contact <span class="required">*</span></label>
+                <input name="guardian_contact" required value="{{ form.get('guardian_contact','') }}" placeholder="09XXXXXXXXX">
+            </div>
+            <div class="full">
+                <label>Reason for Applying <span class="required">*</span></label>
+                <textarea name="reason" required placeholder="Explain why you are applying for this scholarship.">{{ form.get('reason','') }}</textarea>
+            </div>
+            <div class="full">
+                <button class="btn btn-primary" type="submit">Submit Scholarship Application</button>
+                <a class="btn btn-outline" href="{{ url_for('dashboard') }}">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+</section>
+{% endblock %}

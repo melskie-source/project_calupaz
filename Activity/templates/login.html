@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Login | ACC Portal{% endblock %}
+{% block content %}
+<section class="page">
+<div class="form-card" style="max-width: 500px;">
+    <div class="eyebrow">Student Login</div>
+    <h2>Welcome back</h2>
+    <p>Use your registered username or email and password.</p>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div style="display:grid; gap:18px;">
+            <div>
+                <label>Username or Email <span class="required">*</span></label>
+                <input name="identifier" required value="{{ request.form.get('identifier','') }}" autocomplete="username">
+            </div>
+            <div>
+                <label>Password <span class="required">*</span></label>
+                <input type="password" name="password" required autocomplete="current-password">
+            </div>
+            <button class="btn btn-primary" type="submit">Log In</button>
+        </div>
+    </form>
+    <p>New student? <a class="small-link" href="{{ url_for('register') }}">Create an account.</a></p>
+</div>
+</section>
+{% endblock %}

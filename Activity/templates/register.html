@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Register | ACC Portal{% endblock %}
+{% block content %}
+<section class="page">
+<div class="form-card">
+    <div class="eyebrow">Student Registration</div>
+    <h2>Create your ACC Portal account</h2>
+    <p>Enter your student information and attach one valid ID. Maximum file size: 5 MB.</p>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <div class="form-grid">
+            <div>
+                <label>Student ID <span class="required">*</span></label>
+                <input name="student_id" required value="{{ form.get('student_id','') }}" placeholder="e.g. 2026-0001">
+            </div>
+            <div>
+                <label>Full Name <span class="required">*</span></label>
+                <input name="full_name" required value="{{ form.get('full_name','') }}" placeholder="Juan Dela Cruz">
+            </div>
+            <div>
+                <label>Email <span class="required">*</span></label>
+                <input type="email" name="email" required value="{{ form.get('email','') }}" placeholder="student@example.com">
+            </div>
+            <div>
+                <label>Username <span class="required">*</span></label>
+                <input name="username" required value="{{ form.get('username','') }}" placeholder="juan2026">
+            </div>
+            <div>
+                <label>Password <span class="required">*</span></label>
+                <input type="password" name="password" required minlength="8" placeholder="At least 8 characters">
+            </div>
+            <div>
+                <label>Confirm Password <span class="required">*</span></label>
+                <input type="password" name="confirm_password" required minlength="8" placeholder="Repeat password">
+            </div>
+            <div>
+                <label>Course / Program <span class="required">*</span></label>
+                <input name="course" required value="{{ form.get('course','') }}" placeholder="BS Information Technology">
+            </div>
+            <div>
+                <label>Year Level <span class="required">*</span></label>
+                <select name="year_level" required>
+                    <option value="">Select year</option>
+                    {% for y in ['1st Year','2nd Year','3rd Year','4th Year'] %}
+                    <option value="{{ y }}" {% if form.get('year_level') == y %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="full">
+                <label>Valid ID <span class="required">*</span></label>
+                <input type="file" name="valid_id" required accept=".pdf,.jpg,.jpeg,.png">
+                <div class="help">Accepted: PDF, JPG, JPEG, PNG. Maximum 5 MB.</div>
+            </div>
+            <div class="full">
+                <button class="btn btn-primary" type="submit">Register Account</button>
+            </div>
+        </div>
+    </form>
+    <p>Already registered? <a class="small-link" href="{{ url_for('login') }}">Log in here.</a></p>
+</div>
+</section>
+{% endblock %}

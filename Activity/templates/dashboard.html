@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | ACC Portal{% endblock %}
+{% block content %}
+<section class="page">
+<div class="dashboard-head">
+    <div>
+        <div class="eyebrow">Student Dashboard</div>
+        <h2>Hello, {{ current_user['full_name'] }}</h2>
+        <p>Manage your student portal information and scholarship application.</p>
+    </div>
+    {% if not application %}<a class="btn btn-primary" href="{{ url_for('scholarship') }}">Apply for Scholarship</a>{% endif %}
+</div>
+<div class="dashboard-grid">
+    <div class="panel">
+        <h3>Student Information</h3>
+        <div class="info-list">
+            <div class="info-row"><span>Student ID</span><strong>{{ current_user['student_id'] }}</strong></div>
+            <div class="info-row"><span>Full Name</span><strong>{{ current_user['full_name'] }}</strong></div>
+            <div class="info-row"><span>Email</span><strong>{{ current_user['email'] }}</strong></div>
+            <div class="info-row"><span>Username</span><strong>{{ current_user['username'] }}</strong></div>
+            <div class="info-row"><span>Course</span><strong>{{ current_user['course'] }}</strong></div>
+            <div class="info-row"><span>Year Level</span><strong>{{ current_user['year_level'] }}</strong></div>
+        </div>
+    </div>
+    <div class="panel">
+        <h3>Scholarship Application</h3>
+        {% if application %}
+            <div class="info-list">
+                <div class="info-row"><span>Type</span><strong>{{ application['scholarship_type'] }}</strong></div>
+                <div class="info-row"><span>Status</span><span class="badge">{{ application['status'] }}</span></div>
+                <div class="info-row"><span>Applied</span><strong>{{ application['applied_at'] }}</strong></div>
+                <div><span style="color:#627d98;">Reason</span><p>{{ application['reason'] }}</p></div>
+            </div>
+        {% else %}
+            <p>No scholarship application has been submitted yet.</p>
+            <a class="btn btn-gold" href="{{ url_for('scholarship') }}">Start Application</a>
+        {% endif %}
+    </div>
+</div>
+</section>
+{% endblock %}
